@@ -1,0 +1,17 @@
+<%= form_for(@getavailfb) do |f| %>
+  <% if @getavailfb.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@getavailfb.errors.count, "error") %> prohibited this getavailfb from being saved:</h2>
+
+      <ul>
+      <% @getavailfb.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

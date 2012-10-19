@@ -1,0 +1,21 @@
+<h1>Listing gethotels</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gethotels.each do |gethotel| %>
+  <tr>
+    <td><%= link_to 'Show', gethotel %></td>
+    <td><%= link_to 'Edit', edit_gethotel_path(gethotel) %></td>
+    <td><%= link_to 'Destroy', gethotel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gethotel', new_gethotel_path %>

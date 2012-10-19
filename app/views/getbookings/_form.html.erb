@@ -1,0 +1,17 @@
+<%= form_for(@getbooking) do |f| %>
+  <% if @getbooking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@getbooking.errors.count, "error") %> prohibited this getbooking from being saved:</h2>
+
+      <ul>
+      <% @getbooking.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

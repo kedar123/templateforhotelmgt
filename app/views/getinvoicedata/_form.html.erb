@@ -1,0 +1,17 @@
+<%= form_for(@getinvoicedatum) do |f| %>
+  <% if @getinvoicedatum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@getinvoicedatum.errors.count, "error") %> prohibited this getinvoicedatum from being saved:</h2>
+
+      <ul>
+      <% @getinvoicedatum.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

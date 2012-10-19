@@ -1,0 +1,21 @@
+<h1>Listing updateretes</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @updateretes.each do |updaterete| %>
+  <tr>
+    <td><%= link_to 'Show', updaterete %></td>
+    <td><%= link_to 'Edit', edit_updaterete_path(updaterete) %></td>
+    <td><%= link_to 'Destroy', updaterete, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Updaterete', new_updaterete_path %>

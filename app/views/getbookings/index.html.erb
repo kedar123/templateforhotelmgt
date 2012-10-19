@@ -1,0 +1,21 @@
+<h1>Listing getbookings</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @getbookings.each do |getbooking| %>
+  <tr>
+    <td><%= link_to 'Show', getbooking %></td>
+    <td><%= link_to 'Edit', edit_getbooking_path(getbooking) %></td>
+    <td><%= link_to 'Destroy', getbooking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Getbooking', new_getbooking_path %>

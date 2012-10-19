@@ -1,0 +1,21 @@
+<h1>Listing getroomratecodes</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @getroomratecodes.each do |getroomratecode| %>
+  <tr>
+    <td><%= link_to 'Show', getroomratecode %></td>
+    <td><%= link_to 'Edit', edit_getroomratecode_path(getroomratecode) %></td>
+    <td><%= link_to 'Destroy', getroomratecode, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Getroomratecode', new_getroomratecode_path %>

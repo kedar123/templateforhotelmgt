@@ -1,0 +1,17 @@
+<%= form_for(@getnotificationmessage) do |f| %>
+  <% if @getnotificationmessage.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@getnotificationmessage.errors.count, "error") %> prohibited this getnotificationmessage from being saved:</h2>
+
+      <ul>
+      <% @getnotificationmessage.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

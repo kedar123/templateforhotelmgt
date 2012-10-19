@@ -1,0 +1,17 @@
+<%= form_for(@setmarkassent) do |f| %>
+  <% if @setmarkassent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@setmarkassent.errors.count, "error") %> prohibited this setmarkassent from being saved:</h2>
+
+      <ul>
+      <% @setmarkassent.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

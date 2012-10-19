@@ -1,0 +1,17 @@
+<%= form_for(@getratesdb) do |f| %>
+  <% if @getratesdb.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@getratesdb.errors.count, "error") %> prohibited this getratesdb from being saved:</h2>
+
+      <ul>
+      <% @getratesdb.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

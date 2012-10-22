@@ -10,9 +10,9 @@ class GetavailfbsController < ApplicationController
     #end
     
     
-    getavaires = Getavailfb.get_avail_fb
+   # getavaires = Getavailfb.get_avail_fb
     p "getavailablefbresponse"
-    p getavaires
+    #p getavaires
     p "getavailablefbresponse"
     
     
@@ -33,7 +33,7 @@ class GetavailfbsController < ApplicationController
   # GET /getavailfbs/new
   # GET /getavailfbs/new.json
   def new
-    @getavailfb = Getavailfb.new
+    #@getavailfb = Getavailfb.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -49,16 +49,18 @@ class GetavailfbsController < ApplicationController
   # POST /getavailfbs
   # POST /getavailfbs.json
   def create
-    @getavailfb = Getavailfb.new(params[:getavailfb])
+    getavailfb = Getavailfb.get_avail_fb(params)
 
     respond_to do |format|
-      if @getavailfb.save
-        format.html { redirect_to @getavailfb, notice: 'Getavailfb was successfully created.' }
+      if  getavailfb.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        flash[:notice]= 'Getavailfb was successfully created.'
+        format.html { redirect_to  :action=>:index }
         format.json { render json: @getavailfb, status: :created, location: @getavailfb }
       else
+        flash[:notice] = getavailfb.body
         format.html { render action: "new" }
         format.json { render json: @getavailfb.errors, status: :unprocessable_entity }
-      end
+      end 
     end
   end
 

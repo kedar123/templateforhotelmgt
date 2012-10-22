@@ -2,16 +2,16 @@ class CancelbookingsController < ApplicationController
   # GET /cancelbookings
   # GET /cancelbookings.json
   def index
-    #@cancelbookings = Cancelbooking.all
+    @cancelbookings = []
 
     #respond_to do |format|
     #  format.html # index.html.erb
     #  format.json { render json: @cancelbookings }
     #end
     
-   getres = Cancelbooking.cancel
+   #getres = Cancelbooking.cancel
    p "the responseee"
-   p getres
+   #p getres
    p "and the responseee"
   end
 
@@ -29,7 +29,7 @@ class CancelbookingsController < ApplicationController
   # GET /cancelbookings/new
   # GET /cancelbookings/new.json
   def new
-    @cancelbooking = Cancelbooking.new
+   # @cancelbooking = Cancelbooking.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,13 +45,15 @@ class CancelbookingsController < ApplicationController
   # POST /cancelbookings
   # POST /cancelbookings.json
   def create
-    @cancelbooking = Cancelbooking.new(params[:cancelbooking])
+    cancelbooking = Cancelbooking.cancel(params)
 
     respond_to do |format|
-      if @cancelbooking.save
-        format.html { redirect_to @cancelbooking, notice: 'Cancelbooking was successfully created.' }
+      if cancelbooking.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        flash[:notice] =  'Cancelbooking was successfully created.'
+        format.html { redirect_to :action=>"index"    }
         format.json { render json: @cancelbooking, status: :created, location: @cancelbooking }
       else
+        flash[:notice] = cancelbooking.body
         format.html { render action: "new" }
         format.json { render json: @cancelbooking.errors, status: :unprocessable_entity }
       end

@@ -1,14 +1,28 @@
 require "savon_model"
-class Cancelbooking 
-  include Savon::Model
+
+require 'net/http'
+class Cancelbooking <  ActiveRecord::Base
+   
  #actions :cancel
-  document "http://www.reconline.com/recoupdate/update.asmx?wsdl"
+ # document "http://www.reconline.com/recoupdate/update.asmx?wsdl"
   
 
-     actions :cancel 
+  #   actions :cancel 
 
-  def cancel()
-    super(:User =>  'user',:Password=>'password',:idRSV=>'idrsv').to_hash
+  def self.cancel(params)
+     uri = URI('http://www.reconline.com/recoupdate/update.asmx/Cancel')
+  
+    
+  res = Net::HTTP.post_form(uri, 'User'=>params[:User],'Password'=>params[:Password],'idRSV'=>params[:idRSV])
+    p "the paaramsmsmsms"
+    p res.inspect
+    p res.to_hash
+    p res.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+    p res.body
+    res.to_hash
+    res
+    
+     
   end
 
 

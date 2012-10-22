@@ -3,15 +3,15 @@ class BookingsController < ApplicationController
   # GET /bookings.json
   def index
    # @bookings = Booking.all
-   bookingresp = Booking.booking
+  # bookingresp = Booking.booking(params)
    p "the booking responseeeee"
-   
-   p bookingresp
+   @bookings = []
+   #p bookingresp
    p "the booking responseeeee"
-   # respond_to do |format|
-   #   format.html # index.html.erb
-   #   format.json { render json: @bookings }
-   # end
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @bookings }
+    end
   end
 
   # GET /bookings/1
@@ -28,7 +28,7 @@ class BookingsController < ApplicationController
   # GET /bookings/new
   # GET /bookings/new.json
   def new
-    @booking = Booking.new
+    #@booking = Booking.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,17 +44,30 @@ class BookingsController < ApplicationController
   # POST /bookings
   # POST /bookings.json
   def create
-    @booking = Booking.new(params[:booking])
-
+     
+     bookingresp = Booking.booking(params)
+  # puts "the booking responseeeee"
+   
+   #puts bookingresp
+   #puts "the booking responseeeee"
+    
+    # exit
+   p bookingresp.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
     respond_to do |format|
-      if @booking.save
-        format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
+      if bookingresp.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        flash[:notice] = 'Booking was successfully created.'
+        
+        format.html { redirect_to :action=>:index }
         format.json { render json: @booking, status: :created, location: @booking }
       else
+        flash[:notice] = bookingresp.body
         format.html { render action: "new" }
         format.json { render json: @booking.errors, status: :unprocessable_entity }
       end
     end
+    
+    
+    
   end
 
   # PUT /bookings/1

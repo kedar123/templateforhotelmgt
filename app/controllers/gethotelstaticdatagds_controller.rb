@@ -2,10 +2,10 @@ class GethotelstaticdatagdsController < ApplicationController
   # GET /gethotelstaticdatagds
   # GET /gethotelstaticdatagds.json
   def index
-    gethotelstaticdatagds = Gethotelstaticdatagd.get_hotel_static_data_gds
+    @gethotelstaticdatagds = []
     
     p "the response of gethotelstatic datagds" 
-    p gethotelstaticdatagds
+  #  p gethotelstaticdatagds
     p "the gethotelstatic " 
     
     
@@ -29,7 +29,7 @@ class GethotelstaticdatagdsController < ApplicationController
   # GET /gethotelstaticdatagds/new
   # GET /gethotelstaticdatagds/new.json
   def new
-    @gethotelstaticdatagd = Gethotelstaticdatagd.new
+   # @gethotelstaticdatagd = Gethotelstaticdatagd.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,13 +45,15 @@ class GethotelstaticdatagdsController < ApplicationController
   # POST /gethotelstaticdatagds
   # POST /gethotelstaticdatagds.json
   def create
-    @gethotelstaticdatagd = Gethotelstaticdatagd.new(params[:gethotelstaticdatagd])
+    gethotelstaticdatagd = Gethotelstaticdatagd.get_hotel_static_data_gds(params)
 
     respond_to do |format|
-      if @gethotelstaticdatagd.save
-        format.html { redirect_to @gethotelstaticdatagd, notice: 'Gethotelstaticdatagd was successfully created.' }
+      if gethotelstaticdatagd.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        flash[:notice] = 'Gethotelstaticdatagd was successfully created.'
+        format.html { redirect_to :action=>:index  }
         format.json { render json: @gethotelstaticdatagd, status: :created, location: @gethotelstaticdatagd }
       else
+        flash[:notice] = gethotelstaticdatagd.body
         format.html { render action: "new" }
         format.json { render json: @gethotelstaticdatagd.errors, status: :unprocessable_entity }
       end

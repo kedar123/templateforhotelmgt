@@ -3,9 +3,9 @@ class GethotelsController < ApplicationController
   # GET /gethotels.json
   def index
     
-    gethotels = Gethotel.get_hotels
+   # gethotels = Gethotel.get_hotels
     p "get hotels"
-    p gethotels
+   # p gethotels
     p "the get hotels"
     respond_to do |format|
       format.html # index.html.erb
@@ -27,7 +27,7 @@ class GethotelsController < ApplicationController
   # GET /gethotels/new
   # GET /gethotels/new.json
   def new
-    @gethotel = Gethotel.new
+    #@gethotel = Gethotel.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,13 +43,14 @@ class GethotelsController < ApplicationController
   # POST /gethotels
   # POST /gethotels.json
   def create
-    @gethotel = Gethotel.new(params[:gethotel])
-
+    gethotel = Gethotel.get_hotels(params)
     respond_to do |format|
-      if @gethotel.save
-        format.html { redirect_to @gethotel, notice: 'Gethotel was successfully created.' }
+      if gethotel.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        flash[:notice] = 'Gethotel was successfully created.'
+        format.html { redirect_to  :action=>:index   }
         format.json { render json: @gethotel, status: :created, location: @gethotel }
       else
+        flash[:notice] =  gethotel.body
         format.html { render action: "new" }
         format.json { render json: @gethotel.errors, status: :unprocessable_entity }
       end

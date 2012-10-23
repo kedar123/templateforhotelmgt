@@ -2,10 +2,10 @@ class GetinvoicedataController < ApplicationController
   # GET /getinvoicedata
   # GET /getinvoicedata.json
   def index
-    getinvoicedata = Getinvoicedatum.get_invoice_data
+    @getinvoicedata = []#Getinvoicedatum.get_invoice_data
    
      p "get invoice data" 
-     p getinvoicedata
+    # p getinvoicedata
      p "and the get invoice data"
     
     respond_to do |format|
@@ -28,7 +28,7 @@ class GetinvoicedataController < ApplicationController
   # GET /getinvoicedata/new
   # GET /getinvoicedata/new.json
   def new
-    @getinvoicedatum = Getinvoicedatum.new
+    #@getinvoicedatum = Getinvoicedatum.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,13 +44,16 @@ class GetinvoicedataController < ApplicationController
   # POST /getinvoicedata
   # POST /getinvoicedata.json
   def create
-    @getinvoicedatum = Getinvoicedatum.new(params[:getinvoicedatum])
+    getinvoicedatum = Getinvoicedatum.get_invoice_data(params)
 
     respond_to do |format|
-      if @getinvoicedatum.save
-        format.html { redirect_to @getinvoicedatum, notice: 'Getinvoicedatum was successfully created.' }
+      if getinvoicedatum.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        flash[:notice] = 'Getinvoicedatum was successfully created.'
+        format.html { redirect_to :action=>:index   }
         format.json { render json: @getinvoicedatum, status: :created, location: @getinvoicedatum }
       else
+        flash[:notice] =  getinvoicedatum.body
+        
         format.html { render action: "new" }
         format.json { render json: @getinvoicedatum.errors, status: :unprocessable_entity }
       end

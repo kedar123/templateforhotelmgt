@@ -28,7 +28,7 @@ class GetnotificationmessagesController < ApplicationController
   # GET /getnotificationmessages/new
   # GET /getnotificationmessages/new.json
   def new
-    @getnotificationmessage = Getnotificationmessage.new
+     
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,13 +44,16 @@ class GetnotificationmessagesController < ApplicationController
   # POST /getnotificationmessages
   # POST /getnotificationmessages.json
   def create
-    @getnotificationmessage = Getnotificationmessage.new(params[:getnotificationmessage])
+    getnotificationmessage = Getnotificationmessage.get_notification_messages(params)
 
     respond_to do |format|
       if @getnotificationmessage.save
-        format.html { redirect_to @getnotificationmessage, notice: 'Getnotificationmessage was successfully created.' }
+        flash[:notice] = 'Getnotificationmessage was successfully created.'
+        format.html { redirect_to  :action=>:index    }
         format.json { render json: @getnotificationmessage, status: :created, location: @getnotificationmessage }
       else
+        
+         flash[:notice] = bookingresp.getnotificationmessage
         format.html { render action: "new" }
         format.json { render json: @getnotificationmessage.errors, status: :unprocessable_entity }
       end

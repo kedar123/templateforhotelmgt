@@ -3,8 +3,8 @@ class GetcommissionstatusesController < ApplicationController
   # GET /getcommissionstatuses.json
   def index
     p "the get commission response"
-    getcommresp = Getcommissionstatus.get_commission_status
-    p getcommresp
+   # getcommresp = Getcommissionstatus.get_commission_status
+   # p getcommresp
     p "the responseeeeee"
 
     #respond_to do |format|
@@ -27,7 +27,7 @@ class GetcommissionstatusesController < ApplicationController
   # GET /getcommissionstatuses/new
   # GET /getcommissionstatuses/new.json
   def new
-    @getcommissionstatus = Getcommissionstatus.new
+    #@getcommissionstatus = Getcommissionstatus.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,13 +43,15 @@ class GetcommissionstatusesController < ApplicationController
   # POST /getcommissionstatuses
   # POST /getcommissionstatuses.json
   def create
-    @getcommissionstatus = Getcommissionstatus.new(params[:getcommissionstatus])
+    getcommissionstatus = Getcommissionstatus.get_commission_status(params)
 
     respond_to do |format|
-      if @getcommissionstatus.save
-        format.html { redirect_to @getcommissionstatus, notice: 'Getcommissionstatus was successfully created.' }
+      if getcommissionstatus.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        flash[:notice] = 'Getcommissionstatus was successfully created.'
+        format.html { redirect_to :action=>'index'  }
         format.json { render json: @getcommissionstatus, status: :created, location: @getcommissionstatus }
       else
+        flash[:notice] = getcommissionstatus.body
         format.html { render action: "new" }
         format.json { render json: @getcommissionstatus.errors, status: :unprocessable_entity }
       end

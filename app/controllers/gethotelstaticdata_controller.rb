@@ -3,9 +3,9 @@ class GethotelstaticdataController < ApplicationController
   # GET /gethotelstaticdata.json
   def index
     
-    hotelstatisdata = Gethotelstaticdatum.get_hotel_static_data
+    #hotelstatisdata = Gethotelstaticdatum.get_hotel_static_data
     p "the statis data"
-    p hotelstatisdata
+    #p hotelstatisdata
     p "the statis datatatat"
 
    # respond_to do |format|
@@ -28,7 +28,7 @@ class GethotelstaticdataController < ApplicationController
   # GET /gethotelstaticdata/new
   # GET /gethotelstaticdata/new.json
   def new
-    @gethotelstaticdatum = Gethotelstaticdatum.new
+    #@gethotelstaticdatum = Gethotelstaticdatum.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,13 +44,16 @@ class GethotelstaticdataController < ApplicationController
   # POST /gethotelstaticdata
   # POST /gethotelstaticdata.json
   def create
-    @gethotelstaticdatum = Gethotelstaticdatum.new(params[:gethotelstaticdatum])
+    gethotelstaticdatum = Gethotelstaticdatum.get_hotel_static_data(params)
 
     respond_to do |format|
-      if @gethotelstaticdatum.save
-        format.html { redirect_to @gethotelstaticdatum, notice: 'Gethotelstaticdatum was successfully created.' }
+      if gethotelstaticdatum.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        flash[:notice] = 'Gethotelstaticdatum was successfully created.'
+        format.html { redirect_to :action=>:index  }
         format.json { render json: @gethotelstaticdatum, status: :created, location: @gethotelstaticdatum }
       else
+        flash[:notice] = gethotelstaticdatum.body
+        
         format.html { render action: "new" }
         format.json { render json: @gethotelstaticdatum.errors, status: :unprocessable_entity }
       end

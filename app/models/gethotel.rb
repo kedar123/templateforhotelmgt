@@ -1,13 +1,21 @@
-require "savon_model"
-class Gethotel  
-   include Savon::Model
+require 'net/http'
+class Gethotel  <  ActiveRecord::Base
+    
+   
 
-  document "http://www.reconline.com/recoupdate/update.asmx?wsdl"
+     
+  def self.get_hotels(params)
+    #super("User"=>"string","Password"=>"string").to_hash
+    uri = URI('http://www.reconline.com/recoupdate/update.asmx/GetHotels')
   
-
-     actions :get_hotels
-
-  def get_hotels()
-    super("User"=>"string","Password"=>"string").to_hash
+    
+  res = Net::HTTP.post_form(uri, 'User'=>params[:User],'Password'=>params[:Password])
+    p "the paaramsmsmsms"
+    p res.inspect
+    p res.to_hash
+    p res.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+    p res.body
+    res.to_hash
+    res  
   end
 end

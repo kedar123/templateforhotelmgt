@@ -1,17 +1,32 @@
-<%= form_for(@getcommissionstatus) do |f| %>
-  <% if @getcommissionstatus.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@getcommissionstatus.errors.count, "error") %> prohibited this getcommissionstatus from being saved:</h2>
+<form method="POST" action="/getcommissionstatuses" >                      
+                        
+                          <table cellspacing="0" cellpadding="4" bordercolor="#dcdcdc" style="border-collapse: collapse;" rules="none" frame="box">
+                          <tbody><tr>
+	<td background="#dcdcdc" style="border-right: 2px solid white;" class="frmHeader">Parameter</td>
+	<td background="#dcdcdc" class="frmHeader">Wert</td>
+</tr>
 
-      <ul>
-      <% @getcommissionstatus.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+                        
+                          <tr>
+                            <td style="color: #000000; font-weight: normal;" class="frmText">User:</td>
+                            <td><input type="text" name="User" size="50" class="frmInput"></td>
+                          </tr>
+                        
+                          <tr>
+                            <td style="color: #000000; font-weight: normal;" class="frmText">Password:</td>
+                            <td><input type="text" name="Password" size="50" class="frmInput"></td>
+                          </tr>
+                        
+                          <tr>
+                            <td style="color: #000000; font-weight: normal;" class="frmText">idRSV:</td>
+                            <td><input type="text" name="idRSV" size="50" class="frmInput"></td>
+                          </tr>
+                        
+                        <tr>
+                          <td></td>
+                          <td align="right"> <input type="submit" class="button" value="Aufrufen"></td>
+                        </tr>
+                        </tbody></table>
+                      
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+                    </form>

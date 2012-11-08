@@ -2,7 +2,7 @@ class UpdateretesController < ApplicationController
   # GET /updateretes
   # GET /updateretes.json
   def index
-    @updateretes = Updaterete.update_rates
+   # @updateretes = Updaterete.update_rates
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +24,7 @@ class UpdateretesController < ApplicationController
   # GET /updateretes/new
   # GET /updateretes/new.json
   def new
-    @updaterete = Updaterete.new
+   # @updaterete = Updaterete.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,7 +40,7 @@ class UpdateretesController < ApplicationController
   # POST /updateretes
   # POST /updateretes.json
   def create
-    @updaterete = Updaterete.new(params[:updaterete])
+    @updaterete = Updaterete.update_rates(params)
 
     respond_to do |format|
       if @updaterete.save

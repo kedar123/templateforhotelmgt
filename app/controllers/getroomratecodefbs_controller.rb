@@ -2,7 +2,7 @@ class GetroomratecodefbsController < ApplicationController
   # GET /getroomratecodefbs
   # GET /getroomratecodefbs.json
   def index
-    getroomratecodefbs = Getroomratecodefb.get_room_rate_codes_fb
+    #getroomratecodefbs = Getroomratecodefb.get_room_rate_codes_fb
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +24,7 @@ class GetroomratecodefbsController < ApplicationController
   # GET /getroomratecodefbs/new
   # GET /getroomratecodefbs/new.json
   def new
-    @getroomratecodefb = Getroomratecodefb.new
+    #@getroomratecodefb = Getroomratecodefb.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,13 +40,15 @@ class GetroomratecodefbsController < ApplicationController
   # POST /getroomratecodefbs
   # POST /getroomratecodefbs.json
   def create
-    @getroomratecodefb = Getroomratecodefb.new(params[:getroomratecodefb])
+    @getroomratecodefb = Getroomratecodefb.get_room_rate_codes_fb(params)
 
     respond_to do |format|
-      if @getroomratecodefb.save
-        format.html { redirect_to @getroomratecodefb, notice: 'Getroomratecodefb was successfully created.' }
+      if @getroomratecodefb.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        flash[:notice] = 'Getroomratecodefb was successfully created.'
+        format.html { redirect_to :action=>:index    }
         format.json { render json: @getroomratecodefb, status: :created, location: @getroomratecodefb }
       else
+        flash[:notice] = @getroomratecodefb.body
         format.html { render action: "new" }
         format.json { render json: @getroomratecodefb.errors, status: :unprocessable_entity }
       end

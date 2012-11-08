@@ -2,7 +2,7 @@ class UpdatebookingsController < ApplicationController
   # GET /updatebookings
   # GET /updatebookings.json
   def index
-    updatebookings = Updatebooking.update_booking
+    #updatebookings = Updatebooking.update_booking
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +24,7 @@ class UpdatebookingsController < ApplicationController
   # GET /updatebookings/new
   # GET /updatebookings/new.json
   def new
-    @updatebooking = Updatebooking.new
+    #@updatebooking = Updatebooking.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,7 +40,7 @@ class UpdatebookingsController < ApplicationController
   # POST /updatebookings
   # POST /updatebookings.json
   def create
-    @updatebooking = Updatebooking.new(params[:updatebooking])
+    @updatebooking = Updatebooking.update_booking(params)
 
     respond_to do |format|
       if @updatebooking.save

@@ -2,10 +2,10 @@ class GetnotificationmessagesController < ApplicationController
   # GET /getnotificationmessages
   # GET /getnotificationmessages.json
   def index
-    getnotificationmessages = Getnotificationmessage.get_notification_messages
+   # getnotificationmessages = Getnotificationmessage.get_notification_messages
 
      p "the getnotification message"
-     p getnotificationmessages
+    # p getnotificationmessages
      p "noooooooooooooooo"
     
     respond_to do |format|
@@ -47,13 +47,13 @@ class GetnotificationmessagesController < ApplicationController
     getnotificationmessage = Getnotificationmessage.get_notification_messages(params)
 
     respond_to do |format|
-      if @getnotificationmessage.save
+      if getnotificationmessage.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
         flash[:notice] = 'Getnotificationmessage was successfully created.'
         format.html { redirect_to  :action=>:index    }
         format.json { render json: @getnotificationmessage, status: :created, location: @getnotificationmessage }
       else
         
-         flash[:notice] = bookingresp.getnotificationmessage
+         flash[:notice] = getnotificationmessage.body
         format.html { render action: "new" }
         format.json { render json: @getnotificationmessage.errors, status: :unprocessable_entity }
       end

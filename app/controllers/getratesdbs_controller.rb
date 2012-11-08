@@ -2,7 +2,7 @@ class GetratesdbsController < ApplicationController
   # GET /getratesdbs
   # GET /getratesdbs.json
   def index
-    getratesdbs = Getratesdb.get_rates_db
+  #  getratesdbs = Getratesdb.get_rates_db
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +24,7 @@ class GetratesdbsController < ApplicationController
   # GET /getratesdbs/new
   # GET /getratesdbs/new.json
   def new
-    @getratesdb = Getratesdb.new
+    #@getratesdb = Getratesdb.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,13 +40,16 @@ class GetratesdbsController < ApplicationController
   # POST /getratesdbs
   # POST /getratesdbs.json
   def create
-    @getratesdb = Getratesdb.new(params[:getratesdb])
-
+    p "while creating"
+    getratesdb = Getratesdb.get_rates_db(params)
+    p "ssssssss"
     respond_to do |format|
-      if @getratesdb.save
-        format.html { redirect_to @getratesdb, notice: 'Getratesdb was successfully created.' }
+      if getratesdb.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        flash[:notice] =  'Getratesdb was successfully created.'
+        format.html { redirect_to :action=>:index    }
         format.json { render json: @getratesdb, status: :created, location: @getratesdb }
       else
+        flash[:notice] =  getratesdb.body
         format.html { render action: "new" }
         format.json { render json: @getratesdb.errors, status: :unprocessable_entity }
       end

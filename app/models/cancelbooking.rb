@@ -10,7 +10,7 @@ class Cancelbooking <  ActiveRecord::Base
   #   actions :cancel 
 
   def self.cancel(params)
-     uri = URI('http://www.reconline.com/recoupdate/update.asmx/Cancel')
+    uri = URI('http://test.reconline.com/recoupdate/update.asmx/Cancel')
   
     
   res = Net::HTTP.post_form(uri, 'User'=>params[:User],'Password'=>params[:Password],'idRSV'=>params[:idRSV])

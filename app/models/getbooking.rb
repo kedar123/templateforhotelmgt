@@ -17,16 +17,16 @@ class Getbooking   <  ActiveRecord::Base
   
   
   
-   uri = URI('http://www.reconline.com/recoupdate/update.asmx/GetBookings')
+   uri = URI('http://test.reconline.com/recoupdate/update.asmx/GetBookings')
   
     
   res = Net::HTTP.post_form(uri, "User"=>params[:User],"Password"=>params[:Password],"idHotel"=>params[:idHotel],"idSystem"=>params[:idSystem],"ForeignPropCode"=>params[:ForeignPropCode],
         "idRSV"=>params[:idRSV],"StartDate"=>params[:StartDate], "EndDate"=>params[:EndDate],"StartCreationDate"=>params[:StartCreationDate],"EndCreationDate"=>params[:EndCreationDate])
-    p "the paaramsmsmsms"
-    p res.inspect
-    p res.to_hash
-    p res.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
-    p res.body
+    logger.info "the paaramsmsmsms"
+    logger.info res.inspect
+    logger.info res.to_hash
+    logger.info res.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+    logger.info res.body
     res.to_hash
     res  
   end

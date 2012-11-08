@@ -2,7 +2,7 @@ class GetratesController < ApplicationController
   # GET /getrates
   # GET /getrates.json
   def index
-    getrates = Getrate.get_rates
+   # getrates = Getrate.get_rates
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +24,7 @@ class GetratesController < ApplicationController
   # GET /getrates/new
   # GET /getrates/new.json
   def new
-    @getrate = Getrate.new
+    #@getrate = Getrate.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,13 +40,15 @@ class GetratesController < ApplicationController
   # POST /getrates
   # POST /getrates.json
   def create
-    @getrate = Getrate.new(params[:getrate])
+    getrate = Getrate.get_rates(params)
 
     respond_to do |format|
-      if @getrate.save
-        format.html { redirect_to @getrate, notice: 'Getrate was successfully created.' }
+      if getrate.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        flash[:notice] = 'Getrate was successfully created.'
+        format.html { redirect_to @getrate  }
         format.json { render json: @getrate, status: :created, location: @getrate }
       else
+        flash[:notice] = getrate.body
         format.html { render action: "new" }
         format.json { render json: @getrate.errors, status: :unprocessable_entity }
       end

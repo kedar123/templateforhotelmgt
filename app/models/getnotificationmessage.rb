@@ -7,11 +7,11 @@ class Getnotificationmessage   <  ActiveRecord::Base
 
   #   actions :get_notification_messages
 
-  def get_notification_messages(params)
+  def self.get_notification_messages(params)
     #super("User"=>"string","Password"=>"string","idHotelList"=>"string").to_hash
     
     
-      uri = URI('http://www.reconline.com/recoupdate/update.asmx/Booking')
+      uri = URI('http://www.reconline.com/recoupdate/update.asmx/GetNotificationMessages')
   
     
   res = Net::HTTP.post_form(uri, 'User'=>params[:User],'Password'=>params[:Password],'idHotelList'=>params[:idHotelList])

@@ -10,7 +10,7 @@ class Gethotelstaticdatagd  <  ActiveRecord::Base
     #super("User"=>"string","Password"=>"string","idGDS"=>"string","PropertyCode"=>"string").to_hash
     
     
-     uri = URI('http://www.reconline.com/recoupdate/update.asmx/GetHotelStaticDataGDS')
+      uri = URI('http://test.reconline.com/recoupdate/update.asmx/GetHotelStaticDataGDS')
   
     
   res = Net::HTTP.post_form(uri, "Username"=>params[:Username],"Password"=>params[:Password],"idGDS"=>params[:idGDS],"PropertyCode"=>params[:PropertyCode])

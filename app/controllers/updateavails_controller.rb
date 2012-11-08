@@ -2,7 +2,7 @@ class UpdateavailsController < ApplicationController
   # GET /updateavails
   # GET /updateavails.json
   def index
-    updateavails = Updateavail.update_avail
+    #updateavails = Updateavail.update_avail
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +24,7 @@ class UpdateavailsController < ApplicationController
   # GET /updateavails/new
   # GET /updateavails/new.json
   def new
-    @updateavail = Updateavail.new
+    #@updateavail = Updateavail.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,13 +40,15 @@ class UpdateavailsController < ApplicationController
   # POST /updateavails
   # POST /updateavails.json
   def create
-    @updateavail = Updateavail.new(params[:updateavail])
+    @updateavail = Updateavail.update_avail(params)
 
     respond_to do |format|
-      if @updateavail.save
-        format.html { redirect_to @updateavail, notice: 'Updateavail was successfully created.' }
+      if @updateavail.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        flash[:notice] = 'Updateavail was successfully created.'
+        format.html { redirect_to  :action=>:index  }
         format.json { render json: @updateavail, status: :created, location: @updateavail }
       else
+        flash[:notice] = @updateavail.body
         format.html { render action: "new" }
         format.json { render json: @updateavail.errors, status: :unprocessable_entity }
       end

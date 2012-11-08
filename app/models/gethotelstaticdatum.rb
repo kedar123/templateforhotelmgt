@@ -11,7 +11,7 @@ class Gethotelstaticdatum  <  ActiveRecord::Base
   def self.get_hotel_static_data(params)
     #super("User"=>"string","Password"=>"string","idHotel"=>"string").to_hash
     
-     uri = URI('http://www.reconline.com/recoupdate/update.asmx/GetHotelStaticData')
+      uri = URI('http://test.reconline.com/recoupdate/update.asmx/GetHotelStaticData')
   
     
   res = Net::HTTP.post_form(uri, 'User'=>params[:User],'Password'=>params[:Password],'idHotel'=>params[:idHotel])

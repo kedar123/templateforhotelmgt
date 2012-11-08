@@ -1,21 +1,37 @@
-require "savon_model"
-class Updaterete 
+require 'net/http'
+class Updaterete <  ActiveRecord::Base
    
-    include Savon::Model
+   
 
-  document "http://www.reconline.com/recoupdate/update.asmx?wsdl"
   
-
-     actions :update_rates
-
-  def update_rates()
-    super("User"=>"string","Password"=>"string","idHotel"=>"string","idSystem"=>"string","ForeignPropCode"=>"string",
-        "IncludeRateLevels"=>"string","ExcludeRateLevels"=>"string","IncludeRoomTypes"=>"string","ExcludeRoomTypes"=>"string","RateType"=>"string",
-        "StartDate"=>"0.0","EndDate"=>2,"SingleOcc"=>1,"DoubleOcc"=>1,"TripleOcc"=>1,"DoublePlusChild"=>1,"RollawayAdult"=>"string","RollawayChild"=>"string","Crib"=>"string","Meals"=>"string","Advance"=>"string","MinStay"=>"string",
-        "BlockStay"=>"string","Guarantee"=>"string","Cancel"=>"string","CTAMonday"=>"string","CTATuesday"=>"string",
-        "CTAWednesday"=>"string","CTAThursday"=>"string","CTAFriday"=>"string","CTASaturday"=>"string","CTASunday"=>"string",
-        "InvalidMonday"=>"string","InvalidTuesday"=>"string","InvalidWednesday"=>"string","InvalidThursday"=>"string","InvalidFriday"=>"string",
-        "InvalidSaturday"=>"string","InvalidSunday"=>'string').to_hash
+  def self.update_rates(params)
+     uri = URI('http://test.reconline.com/recoupdate/update.asmx/UpdateRates')
+  
+    
+  res = Net::HTTP.post_form(uri, 'User'=>params[:User],'Password'=>params[:Password],
+  "idHotel"=> params[:idHotel] ,"idSystem"=>params[:idSystem],"ForeignPropCode"=>params[:ForeignPropCode],
+        "IncludeRateLevels"=>params[:IncludeRateLevels],"ExcludeRateLevels"=> params[:ExcludeRateLevels],
+        "IncludeRoomTypes"=>params[:IncludeRoomTypes],"ExcludeRoomTypes"=>params[:ExcludeRoomTypes],"RateType"=>
+          params[:RateType],
+        "StartDate"=> params[:StartDate],"EndDate"=>params[:EndDate],"SingleOcc"=>params[:SingleOcc],"DoubleOcc"=>params[:DoubleOcc],
+        "TripleOcc"=>params[:TripleOcc],"DoublePlusChild"=>params[:DoublePlusChild],
+        "RollawayAdult"=>params[:RollawayAdult],"RollawayChild"=>params[:RollawayChild],"Crib"=>params[:Crib],"Meals"=>params[:Meals],
+        "Advance"=> params[:Advance],"MinStay"=> params[:MinStay],
+        "BlockStay"=> params[:BlockStay],"Guarantee"=>params[:Guarantee],"Cancel"=>params[:Cancel],"CTAMonday"=>params[:CTAMonday],
+        "CTATuesday"=>params[:CTATuesday] ,
+        "CTAWednesday"=>params[:CTAWednesday],"CTAThursday"=>params[:CTAThursday],"CTAFriday"=>params[:CTAFriday],"CTASaturday"=>params[:CTASaturday],
+        "CTASunday"=>params[:CTASunday],
+        "InvalidMonday"=>params[:InvalidMonday],"InvalidTuesday"=>params[:InvalidTuesday],"InvalidWednesday"=>params[:InvalidWednesday],"InvalidThursday"=>params[:InvalidThursday],"InvalidFriday"=>params[:InvalidFriday],
+        "InvalidSaturday"=>params[:InvalidSaturday],"InvalidSunday"=>params[:InvalidSunday])
+    logger.info "the paaramsmsmsms"
+    logger.info res.inspect
+    logger.info res.to_hash
+    logger.info res.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+    logger.info res.body
+    logger.info res.to_hash
+    res 
+    
+   
   end
   
   

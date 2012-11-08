@@ -50,7 +50,7 @@ class GetavailfbsController < ApplicationController
   # POST /getavailfbs.json
   def create
     getavailfb = Getavailfb.get_avail_fb(params)
-
+    
     respond_to do |format|
       if  getavailfb.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
         flash[:notice]= 'Getavailfb was successfully created.'

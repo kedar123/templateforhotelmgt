@@ -22,6 +22,8 @@ class Updatebooking  <  ActiveRecord::Base
     logger.info res.to_hash
     logger.info res.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
     logger.info res.body
+    logger.info res.body.inspect
+    
     res.to_hash
     res  
    

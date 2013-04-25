@@ -40,15 +40,15 @@ class UpdatebookingsController < ApplicationController
   # POST /updatebookings
   # POST /updatebookings.json
   def create
-    @updatebooking = Updatebooking.update_booking(params)
+    updatebooking = Updatebooking.update_booking(params)
 
     respond_to do |format|
-      if @updatebooking.save
-        format.html { redirect_to @updatebooking, notice: 'Updatebooking was successfully created.' }
-        format.json { render json: @updatebooking, status: :created, location: @updatebooking }
+      if updatebooking.body.include?("<boolean xmlns=\"http://www.reconline.com/\">true</boolean>")
+        format.html { redirect_to updatebooking, notice: 'Updatebooking was successfully created.' }
+        format.json { render json: updatebooking, status: :created, location: updatebooking }
       else
         format.html { render action: "new" }
-        format.json { render json: @updatebooking.errors, status: :unprocessable_entity }
+        format.json { render json: updatebooking.errors, status: :unprocessable_entity }
       end
     end
   end
